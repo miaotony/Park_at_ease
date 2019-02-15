@@ -4,9 +4,8 @@ CEIESTA_Advanced Guide for Winter Vacation
 Section2 Course Design
 四院科协寒假进阶指南Section2小课设
 基于Python实现 by Hzj~
-
-@DevelopTime：2019.2.6, 2.14-
 Miao~
+@DevelopTime：2019.2.6, 2.14-
 
 # main.py
 """
@@ -15,6 +14,7 @@ Miao~
 import os
 import logging
 import re   # 正则表达式
+import time
 
 # Sub module
 from Car import *
@@ -109,8 +109,10 @@ def main():
         if not isAdmin:
             # 用户
             if choice == '0':
+                os.system("cls")  # 清屏
+                print('Goodbye.\nHave a nice day! ')
+                time.sleep(3)
                 exit(0)
-
             elif choice == '1':  # 停车
                 pass
             elif choice == '2':  # 取车
@@ -121,10 +123,11 @@ def main():
                 isAdmin = True
                 continue
             elif choice == '5':  # 关于
+                os.system("cls")  # 清屏
                 print("""
                         停车场管理系统
                         Version:0.0.1
-                    Copyright by Hzj.All rights reserved.
+                    Copyright by Hzj. All rights reserved.
 
                     """)
                 os.system("pause")
@@ -134,30 +137,39 @@ def main():
         elif isAdmin:
             # 管理员
             if choice == '0':  # 退出
+                os.system("cls")  # 清屏
+                print('Goodbye.\nHave a nice day! ')
+                time.sleep(3)
                 exit(0)
             elif choice == '1':  # 停车
-                park.park()
-                os.system("pause")
+                os.system("cls")  # 清屏
+                park.park(isAdmin)
             elif choice == '2':  # 取车
+                os.system("cls")  # 清屏
                 pass
             elif choice == '3':  # 显示车辆信息
+                os.system("cls")  # 清屏
                 park.display()
                 os.system("pause")
             elif choice == '4':  # 查询车辆信息
                 pass
             elif choice == '5':  # 编辑车辆信息
+                os.system("cls")  # 清屏
                 pass
             elif choice == '6':  # 统计车辆信息
+                os.system("cls")  # 清屏
                 pass
             elif choice == '7':  # 从文件加载车辆
+                os.system("cls")  # 清屏
                 pass
             elif choice == '8':  # 切换到用户模式
                 isAdmin = False
             elif choice == '9':  # 关于
+                os.system("cls")  # 清屏
                 print("""
                     停车场管理系统
                     Version:0.0.1
-                Copyright by Hzj.All rights reserved.
+                Copyright by Hzj. All rights reserved.
 
                 """)
                 os.system("pause")
