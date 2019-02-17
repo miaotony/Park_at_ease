@@ -5,7 +5,9 @@ Section2 Course Design
 四院科协寒假进阶指南Section2小课设
 基于Python实现 by Hzj~
 Miao~
-@DevelopTime：2019.2.6, 2.14-
+@DevelopTime:2019.2.6, 2.14-
+@Version:V0.2
+@UpdateTime:2019.2.18凌晨
 
 # main.py
 """
@@ -17,9 +19,10 @@ import re   # 正则表达式
 import time
 
 # Sub module
-from Car import *
-from User import *
-from GUI import *
+from Car import Car, ParkManage, Model, Color
+from User import User
+# from GUI import *  # developing
+# from IO import *  # developing
 
 
 def menu_select(isAdmin):
@@ -114,22 +117,26 @@ def main():
                 time.sleep(3)
                 exit(0)
             elif choice == '1':  # 停车
-                pass
+                os.system("cls")  # 清屏
+                park.park(isAdmin)
             elif choice == '2':  # 取车
                 pass
             elif choice == '3':  # 查车
-                pass
+                os.system("cls")
+                park.inquire()
+                os.system("pause")
             elif choice == '4':  # 切换到管理员模式
                 isAdmin = True
                 continue
             elif choice == '5':  # 关于
                 os.system("cls")  # 清屏
                 print("""
-                        停车场管理系统
-                        Version:0.0.1
-                    Copyright by Hzj. All rights reserved.
+                     停车场管理系统
+                     Version:0.2
+                    Copyright by Hzj.
+                   All rights reserved.
 
-                    """)
+                 """)
                 os.system("pause")
             else:
                 pass
@@ -152,7 +159,9 @@ def main():
                 park.display()
                 os.system("pause")
             elif choice == '4':  # 查询车辆信息
-                pass
+                os.system("cls")
+                park.inquire()
+                os.system("pause")
             elif choice == '5':  # 编辑车辆信息
                 os.system("cls")  # 清屏
                 pass
@@ -168,8 +177,9 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                     停车场管理系统
-                    Version:0.0.1
-                Copyright by Hzj. All rights reserved.
+                    Version:0.2
+                   Copyright by Hzj.
+                  All rights reserved.
 
                 """)
                 os.system("pause")
