@@ -11,7 +11,9 @@ print('Hello, this is Park_at_ease!')
 
 ```
 
-@Status：**正在开发中（_developing_）**  
+## Status
+
+**正在开发中（_developing_）**  
 
 ## Version  
 
@@ -20,7 +22,7 @@ print('Hello, this is Park_at_ease!')
 #### V0.2.1
 2019.2.18 update 菜单，空位查询优化。
 #### V0.2.0
-2019.2.18 add 车辆信息查询，文件IO开工。
+2019.2.17 add 车辆信息查询，文件IO开工。
 #### V0.1.0 
 2019.2.16 add 停车，显示车辆信息。
 
@@ -35,8 +37,8 @@ print('Hello, this is Park_at_ease!')
 - [ ] 登录界面 Login  
 - [ ] 图形界面 GUI  
 - [ ] 多线程或多进程 Multithreading or Multiprocessing  
-- [ ] 微信推送 Wechat Push  
 - [ ] 邮件推送 Email Push  
+- [ ] 微信推送 Wechat Push  
 - [ ] TCP  
    etc.  
    
