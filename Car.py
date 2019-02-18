@@ -5,7 +5,7 @@ Configurations of Car.
 Made by Hzj.
 """
 
-from enum import Enum, unique
+from enum import Enum
 import time
 import re
 import os
@@ -13,6 +13,8 @@ import logging
 
 Model = Enum('Model', ("小汽车", "小卡", "中卡", "大卡"))
 Color = Enum('Color', ("白色", "黑色", "灰色", "蓝色", "红色", "黄色"))
+unit_price = 5  # 每小时单价为5元
+
 
 class Car(object):  # ParkManage
     def __init__(self, parknum, carnum, model, color):
@@ -23,42 +25,13 @@ class Car(object):  # ParkManage
         self.color = color
         self.intime = None
 
-        """
-        car.carnum = None
-        car.intime = None
-        """
-
     def __setitem__(self, key, value):
         self.__dict__[key] = value
+
     def __getitem__(self, key):
         return self.__dict__[key]
 
     def __str__(self):
-        """
-        # car_model judgment: enum：num->中文
-        if self.model == '0':
-            self.model = "小汽车"
-        elif self.model == '1':
-            self.model = "小卡"
-        elif self.model == '2':
-            self.model = "中卡"
-        elif self.model == '3':
-            self.model = "大卡"
-
-        # car_color judgment: enum：num->中文
-        if self.color == '0':
-            self.color = "黑色"
-        elif self.color == '1':
-            self.color = "白色"
-        elif self.color == '2':
-            self.color = "灰色"
-        elif self.color == '3':
-            self.color = "蓝色"
-        elif self.color == '4':
-            self.color = "红色"
-        elif self.color == '5':
-            self.color = "黄色"
-        """
         return "%4s   %-8s   %-6s   %-s   %s" % \
             (self.parknum, self.carnum, self.model.name, self.color.name, self.intime)
 
@@ -217,6 +190,10 @@ class ParkManage(object):
         """
         if carlist is None:
             carlist = self.carlist
+            if len(self.carlist) == 0:
+                print("停车场内暂无车辆。")
+                return None
+
         print("车位    车牌号     车型       颜色    入场时间 ")
         i = 0
         for parkedcar in carlist:
@@ -260,26 +237,27 @@ class ParkManage(object):
         else:
             return None
 
-    def inquire(self):
+    def inquire(self, choice=-1):
         """
         查询信息
-        Developing:按照入场时间查询（多少时间内），输入的异常处理。
-        :return:None
+        复用于取车的查找，修改信息的查找。
+        Developing:按照入场时间查询（多少时间内）。
+        :param:choice:查询方式选择，默认为-1.
+        :return:None/{class Car}parkedcar
         """
-        print("""
-            1)空闲车位查询
-            --车辆信息查询--
-            2)按车位查询车辆
-            3)按车牌查询车辆
-            4)按车型查询车辆
-            5)按颜色查询车辆
-            6)按入场时间查询(developing)
-            ---------------------------
-            0)退出
-        
-        """)
-        choice = -1
+        # choice = -1  # DEBUG
         while choice < 0 or choice > 6:
+            print("""
+                1)空闲车位查询
+                --车辆信息查询--
+                2)按车位查询车辆
+                3)按车牌查询车辆
+                4)按车型查询车辆
+                5)按颜色查询车辆
+                6)按入场时间查询(developing)
+                ---------------------------
+                0)返回主菜单
+            """)
             try:
                 choice = int(input("请输入操作码："))
             except Exception:
@@ -289,7 +267,7 @@ class ParkManage(object):
                 print("错误操作码，请重试！")
 
         if choice == 0:
-            return None  # 退出
+            return None  # 返回主菜单
         # 空闲车位查询：
         elif choice == 1:
             if len(self.carlist) >= self.max_car:
@@ -302,78 +280,106 @@ class ParkManage(object):
             if len(self.carlist) == 0:
                 print("停车场内暂无车辆。")
                 return None
+            try:
+                # 按车位查询车辆：
+                if choice == 2:
+                    keyword = int(input("请输入车位号："))
+                    t_result = self.check_car(keyword, sort=1)
+                    if t_result:
+                        print("车位    车牌号     车型       颜色    入场时间 ")
+                        print(t_result)
+                        return t_result
+                    else:
+                        print("停车场中无此车辆。")
 
-            # 按车位查询车辆：
-            if choice == 2:
-                keyword = int(input("请输入车位号："))
-                t_result = self.check_car(keyword, sort=1)
-                if t_result:
-                    print("车位    车牌号     车型       颜色    入场时间 ")
-                    print(t_result)
-                else:
-                    print("停车场中无此车辆。")
+                # 按车牌查询车辆：
+                elif choice == 3:
+                    keyword = input("请输入车牌号：")
+                    t_result = self.check_car(keyword, sort=2)
+                    if t_result:
+                        print("车位    车牌号     车型       颜色    入场时间 ")
+                        print(t_result)
+                        return t_result
+                    else:
+                        print("停车场中无此车辆。")
 
-            # 按车牌查询车辆：
-            elif choice == 3:
-                keyword = input("请输入车牌号：")
-                t_result = self.check_car(keyword, sort=2)
-                if t_result:
-                    print("车位    车牌号     车型       颜色    入场时间 ")
-                    print(t_result)
-                else:
-                    print("停车场中无此车辆。")
+                # 按车型查询车辆：
+                elif choice == 4:
+                    keyword = Model(int(input("请输入车辆的车型（1小汽车, 2小卡, 3中卡, 4大卡）：")))
+                    t_result = self.check_car(keyword, sort=3)
+                    if t_result:
+                        self.display(t_result)
+                    else:
+                        print("停车场中无此车型车辆。")
 
-            # 按车型查询车辆：
-            elif choice == 4:
-                keyword = Model(int(input("请输入车辆的车型（1小汽车, 2小卡, 3中卡, 4大卡）：")))
-                t_result = self.check_car(keyword, sort=3)
-                if t_result:
-                    self.display(t_result)
-                else:
-                    print("停车场中无此车型车辆。")
+                # 按颜色查询车辆：
+                elif choice == 5:
+                    keyword = Color(int(input("请输入车辆的颜色（1白色, 2黑色, 3灰色, 4蓝色, 5红色, 6黄色）：")))
+                    t_result = self.check_car(keyword, sort=4)
+                    if t_result:
+                        self.display(t_result)
+                    else:
+                        print("停车场中无此颜色车辆。")
 
-            # 按颜色查询车辆：
-            elif choice == 5:
-                keyword = Color(int(input("请输入车辆的颜色（1白色, 2黑色, 3灰色, 4蓝色, 5红色, 6黄色）：")))
-                t_result = self.check_car(keyword, sort=4)
-                if t_result:
-                    self.display(t_result)
+                # 按入场时间查询：
+                elif choice == 6:
+                    # (developing)
+                    pass
+                    """
+                    keyword = input("请输入入场时间：")
+                    t_result = self.check_car(keyword, sort=5)
+                    if t_result:
+                        print(t_result)
+                    else:
+                        print("停车场中无此车辆。")
+                    """
                 else:
-                    print("停车场中无此颜色车辆。")
-
-            # 按入场时间查询：
-            elif choice == 6:
-                # (developing)
-                pass
-                """
-                keyword = input("请输入入场时间：")
-                t_result = self.check_car(keyword, sort=5)
-                if t_result:
-                    print(t_result)
-                else:
-                    print("停车场中无此车辆。")
-                """
-            else:
-                pass
+                    pass
+            except Exception as e:  # 输入异常处理
+                # logging.exception(e)  # DEBUG
+                print("输入错误，按任意键返回......")
+                return None
 
     def pickup(self):
         """
         取车
-        :return:
+        :return:None
         """
-        pass
+        if len(self.carlist) == 0:
+            print("停车场内暂无车辆。")
+            return None
+        # 变量初始化
+        exit_car = None
+        inquire_choice = -1
+        while inquire_choice < 0 or inquire_choice > 2:
+            try:
+                inquire_choice = int(input("1)按车位查找\n2)按车牌号查找\n0)返回主菜单\n\n请输入操作码:"))
+            except:
+                continue
+        if inquire_choice == 0:  # 返回主菜单
+            return None
+        elif inquire_choice == 1:  # 按车位
+            exit_car = self.inquire(choice=2)
+        elif inquire_choice == 2:  # 按车牌号
+            exit_car = self.inquire(choice=3)
+        if exit_car is None:
+            return None
+        exit_choice = input("确定请输入“Y”，其他任意输入返回主菜单：")
+        if exit_choice == 'Y' or exit_choice == 'y':
+            exit_time = time.ctime()
+            park_time = time.mktime(time.strptime(exit_time)) - time.mktime(time.strptime(exit_car.intime))
+            m, s = divmod(park_time, 60)
+            h, m = divmod(m, 60)
+            str_time = "%02d:%02d:%02d" % (h, m, s)  # 得到时分秒字符串
+            global unit_price
+            price = h * unit_price
+            print("车牌号：%s \n停车时长：%s\n请交费%3d元 " % (exit_car.carnum, str_time, price))
+            self.carlist.remove(exit_car)
+            os.system("pause")  # 预留之后完善计费功能
+            print("结算成功，欢迎您再次光临！")
+        else:
+            return None
 
 
 
 
-
-
-
-
-
-
-
-    
-             
-        
-        

@@ -6,8 +6,8 @@ Section2 Course Design
 基于Python实现 by Hzj~
 Miao~
 @DevelopTime:2019.2.6, 2.14-
-@Version:V0.2.1
-@UpdateTime:2019.2.18
+@Version:V0.3.0
+@UpdateTime:2019.2.18晚
 
 # main.py
 """
@@ -34,10 +34,11 @@ def menu_select(isAdmin, park):
             print("""
             ***欢迎使用停车场管理系统***
                   ## 管理员模式 ##    
-            ————北京第三区交通委提醒您———
-           |    道路千万条，安全第一条   |
-           |    行车不规范，亲人两行泪   |
-            ———————————————————————————
+                  
+            ---北京第三区交通委提醒您---
+           |   道路千万条，安全第一条   |
+           |   行车不规范，亲人两行泪   |
+            ---------------------------
       本停车场总车位数：%3d  当前空闲车位数：%3d 
     
                 1)停车
@@ -77,10 +78,11 @@ def menu_select(isAdmin, park):
             print("""
             ***欢迎使用停车场管理系统***
                    ## 用户模式 ##   
-            ————北京第三区交通委提醒您———
-           |    道路千万条，安全第一条   |
-           |    行车不规范，亲人两行泪   |
-            ———————————————————————————
+                   
+            ---北京第三区交通委提醒您---
+           |   道路千万条，安全第一条   |
+           |   行车不规范，亲人两行泪   |
+            ---------------------------
       本停车场总车位数：%3d  当前空闲车位数：%3d 
     
                 1)停车
@@ -130,7 +132,8 @@ def main():
                 os.system("cls")  # 清屏
                 park.park(isAdmin)
             elif choice == '2':  # 取车
-                pass
+                park.pickup()
+                os.system("pause")
             elif choice == '3':  # 查车
                 os.system("cls")
                 park.inquire()
@@ -142,7 +145,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.2.1
+                       Version:0.3.0
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -163,7 +166,8 @@ def main():
                 park.park(isAdmin)
             elif choice == '2':  # 取车
                 os.system("cls")  # 清屏
-                pass
+                park.pickup()
+                os.system("pause")
             elif choice == '3':  # 显示车辆信息
                 os.system("cls")  # 清屏
                 park.display()
@@ -187,7 +191,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.2.1
+                       Version:0.3.0
                     Copyright by Hzj.
                    All rights reserved.
 
