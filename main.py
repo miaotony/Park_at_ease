@@ -6,8 +6,8 @@ Section2 Course Design
 基于Python实现 by Hzj~
 Miao~
 @DevelopTime:2019.2.6, 2.14-
-@Version:V0.2
-@UpdateTime:2019.2.18凌晨
+@Version:V0.2.1
+@UpdateTime:2019.2.18
 
 # main.py
 """
@@ -25,7 +25,7 @@ from User import User
 # from IO import *  # developing
 
 
-def menu_select(isAdmin):
+def menu_select(isAdmin, park):
     """显示菜单，返回str型操作码"""
     if isAdmin == True:
         # 管理员模式
@@ -33,8 +33,13 @@ def menu_select(isAdmin):
             os.system("cls")
             print("""
             ***欢迎使用停车场管理系统***
-                ## 管理员模式 ##
-            
+                  ## 管理员模式 ##    
+            ————北京第三区交通委提醒您———
+           |    道路千万条，安全第一条   |
+           |    行车不规范，亲人两行泪   |
+            ———————————————————————————
+      本停车场总车位数：%3d  当前空闲车位数：%3d 
+    
                 1)停车
                 2)取车
                 3)显示车辆信息
@@ -46,7 +51,7 @@ def menu_select(isAdmin):
                 8)切换至用户模式
                 9)关于
                 0)退出系统    
-            """)
+            """ % (park.max_car, park.max_car-len(park.carlist)))
             c = input("请输入操作码(0~9):")
             if re.match(r'(^\d$)', c):
                 if 0 <= int(c) <= 9:    # c >= 0 and c <= 9
@@ -71,8 +76,13 @@ def menu_select(isAdmin):
             os.system("cls")
             print("""
             ***欢迎使用停车场管理系统***
-                ## 用户模式 ##
-
+                   ## 用户模式 ##   
+            ————北京第三区交通委提醒您———
+           |    道路千万条，安全第一条   |
+           |    行车不规范，亲人两行泪   |
+            ———————————————————————————
+      本停车场总车位数：%3d  当前空闲车位数：%3d 
+    
                 1)停车
                 2)取车
                 3)查询车辆信息
@@ -80,7 +90,7 @@ def menu_select(isAdmin):
                 4)切换至管理员模式
                 5)关于
                 0)退出系统    
-            """)
+            """ % (park.max_car, park.max_car-len(park.carlist)))
             c = input("请输入操作码(0~5):")
             if re.match(r'(^\d$)', c):
                 if 0 <= int(c) <= 5:    # c >= 0 and c <= 5
@@ -108,12 +118,12 @@ def main():
     isAdmin = True  # 测试用
 
     while True:
-        choice = menu_select(isAdmin)
+        choice = menu_select(isAdmin, park=park)
         if not isAdmin:
             # 用户
             if choice == '0':
                 os.system("cls")  # 清屏
-                print('Goodbye.\nHave a nice day! ')
+                print("Goodbye.\nHave a nice day!\n期待与您下一次的相遇！ \n\n系统3秒后自动关闭...")
                 time.sleep(3)
                 exit(0)
             elif choice == '1':  # 停车
@@ -131,8 +141,8 @@ def main():
             elif choice == '5':  # 关于
                 os.system("cls")  # 清屏
                 print("""
-                     停车场管理系统
-                     Version:0.2
+                      停车场管理系统
+                       Version:0.2.1
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -145,7 +155,7 @@ def main():
             # 管理员
             if choice == '0':  # 退出
                 os.system("cls")  # 清屏
-                print('Goodbye.\nHave a nice day! ')
+                print("Goodbye.\nHave a nice day!\n期待与您下一次的相遇！ \n\n系统3秒后自动关闭...")
                 time.sleep(3)
                 exit(0)
             elif choice == '1':  # 停车
@@ -176,12 +186,12 @@ def main():
             elif choice == '9':  # 关于
                 os.system("cls")  # 清屏
                 print("""
-                    停车场管理系统
-                    Version:0.2
-                   Copyright by Hzj.
-                  All rights reserved.
+                      停车场管理系统
+                       Version:0.2.1
+                    Copyright by Hzj.
+                   All rights reserved.
 
-                """)
+                     """)
                 os.system("pause")
             else:
                 pass

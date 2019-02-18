@@ -71,7 +71,7 @@ class ParkManage(object):
 
     def check_empty(self, model=1):
         """
-        查询空闲车位，model=1默认按小汽车查询
+        查找空闲车位，model=1默认按小汽车查找
         :return:{list}空闲车位号列表
         """
         if model == 1:
@@ -87,6 +87,17 @@ class ParkManage(object):
             return [i for i in range(self.max_car) if i not in
                     [parkedcar["parknum"] for parkedcar in self.carlist]]
 
+    def inquire_empty(self):
+        """
+        查询空闲车位，调用即可进行输出。
+        :return: None
+        """
+        t_i = 0
+        for t_empty in self.check_empty():
+            print("%3s  " % t_empty, end='')
+            t_i += 1
+            if len(self.check_empty()) > 15 and t_i % 15 == 0:  # 每15个一行
+                print('')
 
     def check_car_num(self, carnum):
         """
@@ -101,18 +112,14 @@ class ParkManage(object):
         输入车辆信息，停车。管理员isAdmin==1时询问是否继续停车。
         :return:None
         """
-        if self.carnum >= self.max_car:
+        if len(self.carlist) >= self.max_car:
             print("对不起，当前车库已满！")
             return None
         while True:
             print('当前空闲车位如下：')
-            t_i = 0
-            for t_empty in self.check_empty():
-                print(t_empty, end='\t')
-                t_i += 1
-                if len(self.check_empty()) > 15 and t_i % 15 == 0:  # 每15个一行
-                    print('')
-            print()
+            self.inquire_empty()
+            print('')
+
             ## 变量初始化
             flag_right_input = False
             flag_error = 0  # 清除错误flag
@@ -285,12 +292,12 @@ class ParkManage(object):
             return None  # 退出
         # 空闲车位查询：
         elif choice == 1:
-            t_i = 0
-            for empty in self.check_empty():
-                print(empty, end='\t')
-                t_i += 1
-                if len(self.check_empty()) > 15 and t_i % 15 == 0:  # 每15个一行
-                    print('')
+            if len(self.carlist) >= self.max_car:
+                print("对不起，当前车库已满！")
+                return None
+            else:
+                self.inquire_empty()
+                print('')  # 多空一行
         else:
             if len(self.carlist) == 0:
                 print("停车场内暂无车辆。")
