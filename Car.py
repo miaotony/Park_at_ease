@@ -77,8 +77,12 @@ class ParkManage(object):
         基于正则表达式判断车牌号是否合法，合法为True
         :return:{bool}True/False
         """
-        #### Unfinished!!!!!!!!!!!!!!!!!
-        return True
+        # return True  # DEBUG
+        car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")
+        if car_license.match(carnum):
+            return True
+        else:
+            return False
 
     def park(self, isAdmin):
         """
