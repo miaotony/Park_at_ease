@@ -78,7 +78,7 @@ class ParkManage(object):
         :return:{bool}True/False
         """
         # return True  # DEBUG
-        car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")
+        car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")  # e.g.: 苏BCD123
         if car_license.match(carnum):
             return True
         else:
@@ -97,7 +97,7 @@ class ParkManage(object):
             self.inquire_empty()
             print('')
 
-            ## 变量初始化
+            # 变量初始化
             flag_right_input = False
             flag_error = 0  # 清除错误flag
             temp_parknum = None
@@ -110,7 +110,7 @@ class ParkManage(object):
                 temp_model = int(input('请输入车型序号（1小汽车, 2小卡, 3中卡, 4大卡）:'))
                 temp_color = int(input('请输入车辆颜色序号（1白色, 2黑色, 3灰色, 4蓝色, 5红色, 6黄色）:'))
 
-                ## 以下为输入信息是否有效的判断
+                # 以下为输入信息是否有效的判断
                 if 0 <= temp_parknum <= self.max_car:  # 判断车位是否在合理范围内
                     if 1 <= temp_model <= 4:
                         temp_model = Model(temp_model)  # 转化为Model枚举类型
@@ -236,7 +236,7 @@ class ParkManage(object):
                     t_list.append(parkedCar)
             return t_list
         elif sort == 5:  # 按入场时间
-            # (developing)
+            # TODO (developing)
             pass
         else:
             return None
@@ -327,7 +327,7 @@ class ParkManage(object):
 
                 # 按入场时间查询：
                 elif choice == 6:
-                    # (developing)
+                    # TODO (developing) 按入场时间查询
                     pass
                     """
                     keyword = input("请输入入场时间：")
@@ -384,6 +384,69 @@ class ParkManage(object):
         else:
             return None
 
+    def edit(self):
+        """
+        TODO 编辑车辆信息
+        :return:None
+        """
+        pass
 
+    def statistics(self):
+        """
+        统计车辆信息
+        :return:None
+        """
+        print("""
+        本停车场总车位数：{total:3d}  
+        当前已驶入车辆数：{exist:3d}    空闲车位数：{empty:3d}
+        -----------------------------------------------
+        """.format(total=self.max_car, exist=len(self.carlist), empty=self.max_car-len(self.carlist)),
+              end='')
 
+        # 按车型、颜色统计车辆信息
+        cnt_model = [0, 0, 0, 0]
+        cnt_color = [0, 0, 0, 0, 0, 0]
+        if len(self.carlist) != 0:
+            for parkedcar in self.carlist:
+                cnt_model[parkedcar.model.value-1] += 1
+                cnt_color[parkedcar.color.value-1] += 1
+        print("""
+        * 按车型统计：
+            小汽车 {:3d}, 小卡 {:3d}, 中卡 {:3d}, 大卡 {:3d}
+        
+        * 按颜色统计：
+            白色 {:3d},  黑色 {:3d},  灰色 {:3d}
+            蓝色 {:3d},  红色 {:3d},  黄色 {:3d} 
+        """.format(cnt_model[0], cnt_model[1], cnt_model[2], cnt_model[3],
+                   cnt_color[0], cnt_color[1], cnt_color[2],
+                   cnt_color[3], cnt_color[4], cnt_color[5], ), end='')
 
+        if len(self.carlist) == 0:
+            print("""
+        -----------------------------------------------
+                """)
+        else:
+            # TODO 按入场时间统计
+            print("""
+            * 按入场时间统计：
+                （正在开发中 Developing...）
+            
+            -----------------------------------------------""")
+
+            # TODO 车辆信息按顺序输出
+
+            # choice = input("""
+            # 1)按车位排序  2)按入场时间排序
+            # 请输入操作码（其他任意输入返回主菜单）:""")
+            # if choice == '1':
+            #     pass
+            #     temp_carlist = []
+            #     for parkedcar in self.carlist:
+            #         pass
+            #
+            #     self.display(temp_carlist)
+            # elif choice == '2':
+            #     pass
+            # else:
+            #     return None
+            #

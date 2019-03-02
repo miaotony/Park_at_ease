@@ -17,6 +17,8 @@ print('Hello, this is Park_at_ease!')
 
 ## Version  
 
+#### V0.4.0
+2019.3.3 add 管理员登录，车辆信息统计。
 #### V0.3.1
 2019.2.23 update 车牌号有效性判断（基于正则表达式）。
 #### V0.3.0
@@ -35,13 +37,15 @@ print('Hello, this is Park_at_ease!')
 ---
 ## TODO
 
+- [x] 管理员界面 Administrator Interface  
 - [ ] 文件操作 FileIO
-- [ ] 登录界面 Login  
-- [ ] 登录加密 Login encryption
+- [x] 登录界面 Login  
+- [ ] 登录加密 Login Encryption
 - [ ] 图形界面 GUI  
 - [ ] 多线程或多进程 Multithreading or Multiprocessing  
 - [ ] 邮件推送 Email Push  
 - [ ] 微信推送 Wechat Push  
 - [ ] TCP  
+- [ ] 嵌入式开发（与单片机结合） Embedded Development  
     etc.  
    

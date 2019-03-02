@@ -5,9 +5,9 @@ Section2 Course Design
 四院科协寒假进阶指南Section2小课设
 基于Python实现 by Hzj~
 Miao~
-@DevelopTime:2019.2.6, 2.14-18, 2.23
-@Version:V0.3.1
-@UpdateTime:2019.2.23
+@DevelopTime:2019.2.6, 2.14-18, 2.23, 3.3
+@Version:V0.4.0
+@UpdateTime:2019.3.3
 
 # main.py
 """
@@ -21,8 +21,8 @@ import time
 # Sub module
 from Car import Car, ParkManage, Model, Color
 from User import User
-# from GUI import *  # developing
-# from IO import *  # developing
+# from GUI import *  # TODO
+# from IO import *  # TODO
 
 
 def menu_select(isAdmin, park):
@@ -116,8 +116,9 @@ def menu_select(isAdmin, park):
 def main():
     park = ParkManage()  # 建立并初始化车库
     user = User()  # 初始化用户
-    user.login()
-    isAdmin = True  # 测试用
+    # user.login()
+    isAdmin = True  # DEBUG 测试用
+    # isAdmin = False  # 程序启动时直接进入用户模式
 
     while True:
         choice = menu_select(isAdmin, park=park)
@@ -139,13 +140,15 @@ def main():
                 park.inquire()
                 os.system("pause")
             elif choice == '4':  # 切换到管理员模式
-                isAdmin = True
+                # isAdmin = True  # DEBUG
+                os.system("cls")
+                isAdmin = user.login()  # 管理员登录
                 continue
             elif choice == '5':  # 关于
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.3.1
+                       Version:0.4.0
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -181,7 +184,8 @@ def main():
                 pass
             elif choice == '6':  # 统计车辆信息
                 os.system("cls")  # 清屏
-                pass
+                park.statistics()
+                os.system("pause")
             elif choice == '7':  # 从文件加载车辆
                 os.system("cls")  # 清屏
                 pass
@@ -191,7 +195,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.3.1
+                       Version:0.4.0
                     Copyright by Hzj.
                    All rights reserved.
 
