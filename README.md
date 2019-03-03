@@ -17,6 +17,8 @@ print('Hello, this is Park_at_ease!')
 
 ## Version  
 
+#### V0.5.0
+2019.3.3 add 文件自动导入与保存，从文件中加载车辆信息。文件IO基本完工。
 #### V0.4.0
 2019.3.3 add 管理员登录，车辆信息统计。
 #### V0.3.1
@@ -38,13 +40,13 @@ print('Hello, this is Park_at_ease!')
 ## TODO
 
 - [x] 管理员界面 Administrator Interface  
-- [ ] 文件操作 FileIO
+- [x] 文件操作 FileIO
 - [x] 登录界面 Login  
 - [ ] 登录加密 Login Encryption
 - [ ] 图形界面 GUI  
 - [ ] 多线程或多进程 Multithreading or Multiprocessing  
 - [ ] 邮件推送 Email Push  
-- [ ] 微信推送 Wechat Push  
+- [ ] 微信推送 WeChat Push  
 - [ ] TCP  
 - [ ] 嵌入式开发（与单片机结合） Embedded Development  
     etc.  

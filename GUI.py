@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 # GUI.py
 GUI编程，基于tkinter实现。

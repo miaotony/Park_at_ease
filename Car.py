@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 # Car.py
 Configurations of Car.
@@ -17,13 +18,13 @@ unit_price = 5  # 每小时单价为5元
 
 
 class Car(object):  # ParkManage
-    def __init__(self, parknum, carnum, model, color):
+    def __init__(self, parknum, carnum, model, color, intime=None):
         # super(Car, self).__init__()
         self.parknum = parknum
         self.carnum = carnum
         self.model = model
         self.color = color
-        self.intime = None
+        self.intime = intime
 
     def __setitem__(self, key, value):
         self.__dict__[key] = value
@@ -40,7 +41,7 @@ class ParkManage(object):
     def __init__(self, max_car=150):
         self.max_car = max_car
         self.carlist = []
-        self.carnum = len(self.carlist)
+        # self.carnum = len(self.carlist)
 
     def check_empty(self, model=1):
         """
@@ -48,7 +49,7 @@ class ParkManage(object):
         :return:{list}空闲车位号列表
         """
         if model == 1:
-            # t_num = [parkedcar["parknum"] for parkedcar in self.carlist]
+            # t_num = [parkedCar["parknum"] for parkedCar in self.carlist]
             """
             t_list = []
             for i in range(self.max_car):
@@ -58,7 +59,7 @@ class ParkManage(object):
             """
             # return [i for i in range(self.max_car) if i not in t_num]
             return [i for i in range(self.max_car) if i not in
-                    [parkedcar["parknum"] for parkedcar in self.carlist]]
+                    [parkedCar["parknum"] for parkedCar in self.carlist]]
 
     def inquire_empty(self):
         """
@@ -77,12 +78,12 @@ class ParkManage(object):
         基于正则表达式判断车牌号是否合法，合法为True
         :return:{bool}True/False
         """
-        # return True  # DEBUG
-        car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")  # e.g.: 苏BCD123
-        if car_license.match(carnum):
-            return True
-        else:
-            return False
+        return True  # TODO DEBUG
+        # car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")  # e.g.: 苏BCD123
+        # if car_license.match(carnum):
+        #     return True
+        # else:
+        #     return False
 
     def park(self, isAdmin):
         """
@@ -200,8 +201,8 @@ class ParkManage(object):
 
         print("车位    车牌号     车型       颜色    入场时间 ")
         i = 0
-        for parkedcar in carlist:
-            print(parkedcar)
+        for parkedCar in carlist:
+            print(parkedCar)
             i += 1
             if len(carlist) > 10 and i % 10 == 0:  # 超过10辆车则每10辆一页
                 print("按任意键查看下一页......")
@@ -247,7 +248,7 @@ class ParkManage(object):
         复用于取车的查找，修改信息的查找。
         Developing:按照入场时间查询（多少时间内）。
         :param:choice:查询方式选择，默认为-1.
-        :return:None/{class Car}parkedcar
+        :return:None/{class Car}parkedCar
         """
         # choice = -1  # DEBUG
         while choice < 0 or choice > 6:
@@ -278,6 +279,7 @@ class ParkManage(object):
                 print("对不起，当前车库已满！")
                 return None
             else:
+                print('空闲车位如下：')
                 self.inquire_empty()
                 print('')  # 多空一行
         else:
@@ -407,9 +409,9 @@ class ParkManage(object):
         cnt_model = [0, 0, 0, 0]
         cnt_color = [0, 0, 0, 0, 0, 0]
         if len(self.carlist) != 0:
-            for parkedcar in self.carlist:
-                cnt_model[parkedcar.model.value-1] += 1
-                cnt_color[parkedcar.color.value-1] += 1
+            for parkedCar in self.carlist:
+                cnt_model[parkedCar.model.value-1] += 1
+                cnt_color[parkedCar.color.value-1] += 1
         print("""
         * 按车型统计：
             小汽车 {:3d}, 小卡 {:3d}, 中卡 {:3d}, 大卡 {:3d}
@@ -428,10 +430,10 @@ class ParkManage(object):
         else:
             # TODO 按入场时间统计
             print("""
-            * 按入场时间统计：
-                （正在开发中 Developing...）
-            
-            -----------------------------------------------""")
+        * 按入场时间统计：
+            （正在开发中 Developing...）
+        
+        -----------------------------------------------""")
 
             # TODO 车辆信息按顺序输出
 
@@ -441,7 +443,7 @@ class ParkManage(object):
             # if choice == '1':
             #     pass
             #     temp_carlist = []
-            #     for parkedcar in self.carlist:
+            #     for parkedCar in self.carlist:
             #         pass
             #
             #     self.display(temp_carlist)

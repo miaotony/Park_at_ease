@@ -6,7 +6,7 @@ Section2 Course Design
 基于Python实现 by Hzj~
 Miao~
 @DevelopTime:2019.2.6, 2.14-18, 2.23, 3.3
-@Version:V0.4.0
+@Version:V0.5.0
 @UpdateTime:2019.3.3
 
 # main.py
@@ -21,9 +21,8 @@ import time
 # Sub module
 from Car import Car, ParkManage, Model, Color
 from User import User
+from IO import *
 # from GUI import *  # TODO
-# from IO import *  # TODO
-
 
 def menu_select(isAdmin, park):
     """显示菜单，返回str型操作码"""
@@ -116,8 +115,10 @@ def menu_select(isAdmin, park):
 def main():
     park = ParkManage()  # 建立并初始化车库
     user = User()  # 初始化用户
+    park = load_from_file(park, filename="cars.csv")[0]  # 从文件初始化车辆信息
+
     # user.login()
-    isAdmin = True  # DEBUG 测试用
+    isAdmin = True  # TODO DEBUG 测试用
     # isAdmin = False  # 程序启动时直接进入用户模式
 
     while True:
@@ -126,6 +127,7 @@ def main():
             # 用户
             if choice == '0':
                 os.system("cls")  # 清屏
+                write_to_file(park, filename="cars.csv")  # 将车辆信息写入文件
                 print("Goodbye.\nHave a nice day!\n期待与您下一次的相遇！ \n\n系统3秒后自动关闭...")
                 time.sleep(3)
                 exit(0)
@@ -148,7 +150,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.4.0
+                       Version:0.5.0
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -161,6 +163,7 @@ def main():
             # 管理员
             if choice == '0':  # 退出
                 os.system("cls")  # 清屏
+                write_to_file(park, filename="cars.csv")  # 将车辆信息写入文件
                 print("Goodbye.\nHave a nice day!\n期待与您下一次的相遇！ \n\n系统3秒后自动关闭...")
                 time.sleep(3)
                 exit(0)
@@ -188,14 +191,15 @@ def main():
                 os.system("pause")
             elif choice == '7':  # 从文件加载车辆
                 os.system("cls")  # 清屏
-                pass
+                park = load_new_file(park=park)
+                os.system("pause")
             elif choice == '8':  # 切换到用户模式
                 isAdmin = False
             elif choice == '9':  # 关于
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.4.0
+                       Version:0.5.0
                     Copyright by Hzj.
                    All rights reserved.
 

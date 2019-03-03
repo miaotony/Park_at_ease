@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 # User.py
 Configurations of User
@@ -12,8 +13,8 @@ class User(object):
     def __init__(self):
         self.Username = []
         self.Userpwd = []
-        self.Adminname = "admin"
-        self.Adminpwd = "password"
+        self.Adminname = "hzj"
+        self.Adminpwd = "666"
 
     def login(self):
         """
@@ -34,6 +35,6 @@ class User(object):
                     print('用户名或密码错误，您还有%d次机会，请重试！' % (5-cnt))
                 cnt += 1
         else:
-            print('机会已用尽，即将返回用户界面......')
+            print('机会已用尽，即将返回用户模式......')
             time.sleep(2)
             return False
