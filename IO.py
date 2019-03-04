@@ -13,7 +13,8 @@ from Car import Car, Model, Color
 def load_from_file(park, filename=r"cars.csv"):
     """
     从文件中读取车辆信息。
-    :param park:停车场实例, filename:文件名
+    :param park:停车场实例
+    :param filename:文件名
     :return: {class ParkManage}park, {int}cnt:导入成功计数
     """
     cnt = 0  # counter
@@ -61,7 +62,8 @@ def load_new_file(park):
 def write_to_file(park, filename=r"cars.csv"):
     """
     将车辆信息写入文件。
-    :param park:停车场实例, filename:文件名
+    :param park:停车场实例
+    :param filename:文件名
     :return: None
     """
     try:

@@ -359,6 +359,7 @@ class ParkManage(object):
         inquire_choice = -1
         while inquire_choice < 0 or inquire_choice > 2:
             try:
+                print("-----------取车-----------")
                 inquire_choice = int(input("1)按车位查找\n2)按车牌号查找\n0)返回主菜单\n\n请输入操作码:"))
             except:
                 continue
@@ -388,7 +389,7 @@ class ParkManage(object):
 
     def edit(self):
         """
-        TODO 编辑车辆信息
+        编辑车辆信息
         :return:None
         """
         if len(self.carlist) == 0:
@@ -400,7 +401,7 @@ class ParkManage(object):
         inquire_choice = -1
         while inquire_choice < 0 or inquire_choice > 2:
             try:
-                print("车辆信息编辑")
+                print("-----车辆信息编辑-----")
                 inquire_choice = int(input("1)按车位查找\n2)按车牌号查找\n0)返回主菜单\n\n请输入操作码:"))
             except:
                 continue
@@ -414,8 +415,70 @@ class ParkManage(object):
             return None
         edit_choice = input("确定请输入“Y”，其他任意输入返回主菜单：")
         if edit_choice == 'Y' or edit_choice == 'y':
+            index = self.carlist.index(edit_car)  # 获取索引
+            while True:
+                try:
+                    flag_right = False  # right flag
+                    change_choice = input("\n1)车位号\n2)车牌号\n3)车型\n4)车颜色\n5)入场时间\n0)不修改返回主菜单\n\n请输入您要修改的信息序号：")
+                    if change_choice == '0':
+                        return None
+                    elif change_choice == '1':
+                        new_info = int(input("请输入新的车位号："))
+                        if 0 <= new_info <= self.max_car:  # 在范围内
+                            for parkedCar in self.carlist:
+                                if parkedCar.parknum == new_info:  # 判断车位是否已被占用
+                                    print(" %d号车位已被占用！" % new_info)
+                                    break
+                            else:
+                                self.carlist[index]["parknum"] = new_info
+                                flag_right = True
+                                print("车位号修改成功！")
+                                # break
+                    elif change_choice == '2':
+                        new_info = input("请输入新的车牌号：")
+                        if self.check_car_num(new_info):  # 判断车牌号是否有效
+                            for parkedCar in self.carlist:
+                                if parkedCar.carnum == new_info:  # 判断车牌是否已重复
+                                    print("车牌号重复！")
+                                    break
+                            else:
+                                self.carlist[index]["carnum"] = new_info
+                                flag_right = True
+                                print("车牌号修改成功！")
+                                # break
+                    elif change_choice == '3':
+                        new_info = int(input("请输入新的车型（1小汽车, 2小卡, 3中卡, 4大卡）:"))
+                        if 1 <= new_info <= 4:
+                            new_info = Model(new_info)  # 转化为Model枚举类型
+                            self.carlist[index]["model"] = new_info
+                            flag_right = True
+                            print("车型修改成功！")
+                    elif change_choice == '4':
+                        new_info = int(input("请输入新的车颜色（1白色, 2黑色, 3灰色, 4蓝色, 5红色, 6黄色）："))
+                        if 1 <= new_info <= 6:
+                            new_info = Color(new_info)  # 转化Color枚举类型
+                            self.carlist[index]["color"] = new_info
+                            flag_right = True
+                            print("颜色修改成功！")
+                    elif change_choice == '5':
+                        new_info = input("请输入新的入场时间：(参考格式：2019.3.4 12:00:00)")
+                        print("DEVELOPING...")
+                        # TODO 修改入场时间
+                        pass
+                        break
+                    else:
+                        pass
+                except:
+                    print("输入错误，请重试！")
+                    continue
 
-            pass
+                if flag_right:
+                    break
+                else:
+                    print("请重试！")
+                    continue
+        else:
+            return None
 
     def statistics(self):
         """

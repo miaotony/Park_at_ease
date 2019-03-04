@@ -5,9 +5,9 @@ Section2 Course Design
 四院科协寒假进阶指南Section2小课设
 基于Python实现 by Hzj~
 Miao~
-@DevelopTime:2019.2.6, 2.14-18, 2.23, 3.3
-@Version:V0.5.1
-@UpdateTime:2019.3.3
+@DevelopTime:2019.2.6, 2.14-18, 2.23, 3.3-3.4
+@Version:V0.6.0
+@UpdateTime:2019.3.4
 
 # main.py
 """
@@ -151,7 +151,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.5.1
+                       Version:0.6.0
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -185,7 +185,8 @@ def main():
                 os.system("pause")
             elif choice == '5':  # 编辑车辆信息
                 os.system("cls")  # 清屏
-                pass
+                park.edit()
+                os.system("pause")
             elif choice == '6':  # 统计车辆信息
                 os.system("cls")  # 清屏
                 park.statistics()
@@ -200,7 +201,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.5.1
+                       Version:0.6.0
                     Copyright by Hzj.
                    All rights reserved.
 
