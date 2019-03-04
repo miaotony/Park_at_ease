@@ -78,12 +78,12 @@ class ParkManage(object):
         基于正则表达式判断车牌号是否合法，合法为True
         :return:{bool}True/False
         """
-        return True  # TODO DEBUG
-        # car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")  # e.g.: 苏BCD123
-        # if car_license.match(carnum):
-        #     return True
-        # else:
-        #     return False
+        # return True  # TODO DEBUG
+        car_license = re.compile(u"^[\u4e00-\u9fa5][A-Z][A-Z0-9]{5}$")  # e.g.: 苏BCD123
+        if car_license.match(carnum):
+            return True
+        else:
+            return False
 
     def park(self, isAdmin):
         """
@@ -236,8 +236,8 @@ class ParkManage(object):
                 if parkedCar[key] == keyword:
                     t_list.append(parkedCar)
             return t_list
-        elif sort == 5:  # 按入场时间
-            # TODO (developing)
+        elif sort == 5:  # TODO 按入场时间
+            #  (developing)
             pass
         else:
             return None
@@ -247,7 +247,7 @@ class ParkManage(object):
         查询信息
         复用于取车的查找，修改信息的查找。
         Developing:按照入场时间查询（多少时间内）。
-        :param:choice:查询方式选择，默认为-1.
+        :param choice:查询方式选择，默认为-1.
         :return:None/{class Car}parkedCar
         """
         # choice = -1  # DEBUG
@@ -391,7 +391,31 @@ class ParkManage(object):
         TODO 编辑车辆信息
         :return:None
         """
-        pass
+        if len(self.carlist) == 0:
+            print("停车场内暂无车辆。")
+            return None
+
+        # 变量初始化
+        edit_car = None
+        inquire_choice = -1
+        while inquire_choice < 0 or inquire_choice > 2:
+            try:
+                print("车辆信息编辑")
+                inquire_choice = int(input("1)按车位查找\n2)按车牌号查找\n0)返回主菜单\n\n请输入操作码:"))
+            except:
+                continue
+        if inquire_choice == 0:  # 返回主菜单
+            return None
+        elif inquire_choice == 1:  # 按车位
+            edit_car = self.inquire(choice=2)
+        elif inquire_choice == 2:  # 按车牌号
+            edit_car = self.inquire(choice=3)
+        if edit_car is None:
+            return None
+        edit_choice = input("确定请输入“Y”，其他任意输入返回主菜单：")
+        if edit_choice == 'Y' or edit_choice == 'y':
+
+            pass
 
     def statistics(self):
         """

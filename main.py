@@ -6,7 +6,7 @@ Section2 Course Design
 基于Python实现 by Hzj~
 Miao~
 @DevelopTime:2019.2.6, 2.14-18, 2.23, 3.3
-@Version:V0.5.0
+@Version:V0.5.1
 @UpdateTime:2019.3.3
 
 # main.py
@@ -118,8 +118,8 @@ def main():
     park = load_from_file(park, filename="cars.csv")[0]  # 从文件初始化车辆信息
 
     # user.login()
-    isAdmin = True  # TODO DEBUG 测试用
-    # isAdmin = False  # 程序启动时直接进入用户模式
+    # isAdmin = True  # TODO DEBUG 测试用
+    isAdmin = False  # 程序启动时直接进入用户模式
 
     while True:
         choice = menu_select(isAdmin, park=park)
@@ -135,6 +135,7 @@ def main():
                 os.system("cls")  # 清屏
                 park.park(isAdmin)
             elif choice == '2':  # 取车
+                os.system("cls")
                 park.pickup()
                 os.system("pause")
             elif choice == '3':  # 查车
@@ -150,7 +151,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.5.0
+                       Version:0.5.1
                     Copyright by Hzj.
                    All rights reserved.
 
@@ -199,7 +200,7 @@ def main():
                 os.system("cls")  # 清屏
                 print("""
                       停车场管理系统
-                       Version:0.5.0
+                       Version:0.5.1
                     Copyright by Hzj.
                    All rights reserved.
 
