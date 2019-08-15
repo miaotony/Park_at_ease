@@ -27,9 +27,26 @@ __使用及转载时请注明出处，保留作者信息，严禁商用，严禁
 *（其实已经闲置很久了emmm）*  
 
 **欢迎大家在此基础上继续完善鸭~**  
-**欢迎Star、Fork、提PR！**
+**欢迎Star、Fork、提PR & issue！**
 
-~正在开发中（_developing_）~  
+~正在开发中（_developing_）~ **（划掉）**    
+
+
+## Overview & Requirements
+这是编者参考了一小部分网络上相关的题目，结合实际生活，融合了自己一些想到的，给小干事们出的题目。  
+这里直接就截屏放出来吧，PDF还有别的内容懒得改了。  
+如果有什么建议**欢迎提issue**哈~！  
+
+![pic1](./pic/pic01.png)  
+![pic2](./pic/pic02.png)  
+![pic3](./pic/pic03.png)  
+![pic4](./pic/pic04.png)  
+![pic5](./pic/pic05.png)  
+![pic6](./pic/pic06.png)  
+![pic7 补充](./pic/pic07.png)  
+
+上面最后一张图是补充和tips。  
+
 
 ## Version  
 
